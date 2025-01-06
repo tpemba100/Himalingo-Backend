@@ -4,8 +4,8 @@ import com.example.himalingoBackend.model.User;
 
 public interface UserService {
     //save a new user
-    User saveUser(User user);
+    public User saveUser(User user);
 
 
-//    User findByUsername(String username);
+    public User findByUsername(String username);
 }

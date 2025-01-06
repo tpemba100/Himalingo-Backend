@@ -19,4 +19,10 @@ public class UserController {
         return ResponseEntity.ok("User successfully registered with ID: ");
     }
 
+
+    @GetMapping("/{username}")
+    public ResponseEntity<?> getUser(@PathVariable String username) {
+        return ResponseEntity.ok(userService.findByUsername(username));
+    }
+
 }

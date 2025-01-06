@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+
 @Entity
 @Getter
 @Setter
@@ -25,9 +27,12 @@ public class User {
     private String email;
 //
 //    @Column
-//    @Enumerated(EnumType.STRING)
-//    private Roles roles; // GENERAL, CONTRIBUTOR, ADMIN
+    @Enumerated(EnumType.STRING)
+    private Roles roles; // GENERAL, CONTRIBUTOR, ADMIN
 
+    public enum Roles {
+        ADMIN, USER, CONTRIBUTOR
+    }
 
     public String getUsername() {
         return this.username;
@@ -53,5 +58,12 @@ public class User {
         this.email = email;
     }
 
+    public Roles getRoles() {
+        return this.roles;
+    }
+
+    public void setRoles(Roles roles) {
+        this.roles = roles;
+    }
 
 }
