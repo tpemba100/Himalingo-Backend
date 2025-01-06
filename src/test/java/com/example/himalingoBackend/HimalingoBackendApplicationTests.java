@@ -1,4 +1,4 @@
-package com.example.himalingo_backend;
+package com.example.himalingoBackend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
