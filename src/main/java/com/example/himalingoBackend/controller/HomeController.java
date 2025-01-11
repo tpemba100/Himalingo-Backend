@@ -22,5 +22,11 @@ public class HomeController {
         return "home";
     }
 
+    @GetMapping("/learning")
+    public String LearningPage() {
+        return "learning";
+    }
+
+
 
 }
