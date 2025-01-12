@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class SignUpController {
+
     private final UserService userService;
 
     public SignUpController(UserService userService) {
@@ -23,8 +24,8 @@ public class SignUpController {
     }
 
     @PostMapping("/signup-process")
-    public String signUpUser(@ModelAttribute UserDTO user) {
-        userService.save(user);
+    public String signUpUser(@ModelAttribute UserDTO userDTO) {
+        userService.save(userDTO);
         return "redirect:/login";
     }
 }

@@ -5,7 +5,9 @@
     <title>User Home Page</title>
 </head>
 <body>
-<h1>Welcome to User Home Page</h1>
+<!--<h1>Welcome to User Home Page</h1>-->
+<h1>Welcome, <span th:text="${username}">User</span>!</h1>
+
 <p>    <a th:href="@{/logout}">Logout</a>
 </p>
 </body>

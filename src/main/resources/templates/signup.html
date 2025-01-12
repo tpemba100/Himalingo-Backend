@@ -1,73 +1,57 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Sign Up</title>
     <link rel="stylesheet" th:href="@{/css/main.css}" />
-
 </head>
-<body style="min-height: 100vh; align-items: center; justify-content: center">
+<body style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
 <div class="form-cont">
     <h2>Sign Up</h2>
-<div class="form-container">
 
-<form id="registerForm" th:action="@{/signup-process}" method="post" th:object="${user}">
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input
-                type="text"
-                th:field="*{userName}"
-                id="username"
-                name="username"
-                required autofocus
-                class="form-control"
-        />
+    <div class="form-container">
+        <form id="registerForm" th:action="@{/signup-process}" method="post" th:object="${user}">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input
+                        type="text"
+                        th:field="*{userName}"
+                        id="username"
+                        name="username"
+                        class="form-control"
+                        placeholder="Enter username"
+                        required
+                        autofocus
+                />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                        type="password"
+                        th:field="*{password}"
+                        id="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="Enter password"
+                        required
+                />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                        type="email"
+                        th:field="*{email}"
+                        id="email"
+                        name="email"
+                        class="form-control"
+                        placeholder="Enter email"
+                        required
+                />
+            </div>
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
     </div>
-<!--    <label for="username">Username</label>-->
-<!--    <input type="text" th:field="*{userName}" id="username" name="username" required autofocus>-->
-    <br>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input
-                type="password"
-                th:field="*{password}"
-                id="password"
-                name="password"
-                required
-                class="form-control"
-        />
-    </div>
-<!--    <label for="password">Password</label>-->
-<!--    <input type="password" th:field="*{password}" id="password" name="password" required>-->
-    <br>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input
-                type="email"
-                th:field="*{email}"
-                id="email"
-                name="email"
-                required
-                class="form-control"
-        />
-    </div>
-<!--    <label for="email">Email</label>-->
-<!--    <input type="email" th:field="*{email}" id="email" name="email" required>-->
-    <br>
-    <div class="form-group">
-
-        <label for="role">Role:</label>
-        <select id="role" name="role">
-            <option value="USER">USER</option>
-            <option value="ADMIN">ADMIN</option>
-            <br>
-        </select>
-    </div>
-    <button type="submit" class="btn">Sign Up</button>
-</form>
-</div>
 </div>
 </body>
 </html>

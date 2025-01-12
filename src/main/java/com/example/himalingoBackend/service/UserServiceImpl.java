@@ -4,40 +4,51 @@ import com.example.himalingoBackend.dto.UserDTO;
 import com.example.himalingoBackend.model.User;
 import com.example.himalingoBackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
+import java.util.Collections;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.passwordEncoder = passwordEncoder;
     }
-
 
     @Override
     public void save(UserDTO userDTO) {
-        // Check if user exists by email (optional, if you want to avoid duplicate entries)
-//         if (userRepository.findByEmail(userDTO.getEmail()) != null) {
-//            throw new RuntimeException("User with email: " + userDTO.getEmail() + " already exists");
-//        }
-
-        // Create a new User object and set the properties from UserDTO
+        if (userRepository.findByEmail(userDTO.getEmail()) != null) {
+            throw new RuntimeException("User with email: " + userDTO.getEmail() + " already exists");
+        }
         User user = new User();
-        user.setEmail(userDTO.getEmail());  // User's email
-        user.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));  // Encrypt password
-        user.setUserName(userDTO.getUserName());  // User's username
-        user.setRole(userDTO.getRole());  // Assign the role (USER or ADMIN)
-
-        // Save the user into the database
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        user.setUserName(userDTO.getUserName());
+        user.setRole("USER");
+        user.setEnabled("Y");
         userRepository.save(user);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with email: " + email);
+        }
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                Collections.singletonList(new org.springframework.security.core.authority.SimpleGrantedAuthority("ROLE_" + user.getRole().toUpperCase()))
+        );
+    }
 }

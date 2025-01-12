@@ -1,73 +1,46 @@
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" th:href="@{/css/main.css}" />
-
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
 </head>
-<body style="min-height: 100vh; display: flex; align-items: center; justify-content: center">
+<body style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
 <section class="form-cont">
-
-<!--<br><br>-->
-<!--<nav id="menu">-->
-<!--    <ul>-->
-<!--        <li><a th:href="@{/login}">Login</a></li>-->
-<!--        <li><a th:href="@{/sign-up}">Sign Up</a></li>-->
-<!--    </ul>-->
-
-<!--</nav>-->
-    <h2>Log in</h2>
+    <h2>Log In</h2>
 
     <div class="form-container">
-<!--    <form class="form-signin" method="post" action="#" th:action="@{/login}">-->
-<!--        <h2 class="form-signin-heading">Please ssign in</h2>-->
-<!--        <p>-->
-<!--            <label for="username" class="sr-only">Username</label>-->
-<!--            <input type="text" id="username"  name="username" class="form-control" placeholder="Username" required="" autofocus="">-->
-<!--        </p>-->
-<!--        <p>-->
-<!--            <label for="password" class="sr-only">Password</label>-->
-<!--            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">-->
-<!--        </p>-->
-<!--        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>-->
-<!--    </form>-->
-
-    <form id="loginForm" method="post" action="#" th:action="@{/login}">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input
-                    id="username"
-                    name="username"
-                    class="form-control"
-                    placeholder="Enter username"
-            />
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    class="form-control"
-                    placeholder="Password"
-            />
-        </div>
-        <div class="form-group">
-            Don't Have an account?
-            <a href="register.html" class="register-link">Sign up</a>
-        </div>
-        <!-- Removing the anchor tag around the button to let the form handle the submit -->
-        <button type="submit" class="btn">Log in</button>
-    </form>
-</div>
-
+        <form id="loginForm" method="post" th:action="@{/perform-login}">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        class="form-control"
+                        placeholder="Enter username"
+                        required
+                        autofocus
+                />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="Enter password"
+                        required
+                />
+            </div>
+            <div class="form-group">
+                <p>Don't have an account? <a th:href="@{/sign-up}" class="register-link">Sign Up</a></p>
+            </div>
+            <button type="submit" class="btn">Log In</button>
+        </form>
+    </div>
 </section>
 </body>
 </html>
-
-
-
