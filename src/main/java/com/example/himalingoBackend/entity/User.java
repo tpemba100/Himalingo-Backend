@@ -1,34 +1,39 @@
-package com.example.himalingoBackend.security;
+package com.example.himalingoBackend.entity;
 
-import com.example.himalingoBackend.model.User;
+
+import jakarta.persistence.*;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
-public class UserPrincipal implements UserDetails {
 
-    private final User user;
+//Model User
+@Entity
+@Table(name = "ourusers")
+@Data
+public class User implements UserDetails {
 
-    public UserPrincipal(User user) {
-        this.user = user;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String email;
+    private String name;
+    private String password;
+    private String city;
+    private String role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().toUpperCase()));
-    }
-
-    @Override
-    public String getPassword() {
-        return user.getPassword();
+        return List.of(new SimpleGrantedAuthority(role));
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return email;
     }
 
     @Override
@@ -48,6 +53,6 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getEnabled().equals("Y");
+        return true;
     }
 }

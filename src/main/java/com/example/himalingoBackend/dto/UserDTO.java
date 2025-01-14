@@ -1,39 +1,30 @@
 package com.example.himalingoBackend.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.himalingoBackend.entity.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
 
-@Getter
-@Setter
-@NoArgsConstructor
+import java.util.List;
+
+//User DTO
+
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserDTO {
 
+    private int statusCode;
+    private int id;
+    private String error;
+    private String message;
+
+    private String name;
+    private String city;
+    private String role;
     private String email;
     private String password;
-    private String userName;
+    private User user;
+    private List<User> userList;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 }
