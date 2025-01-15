@@ -1,5 +1,6 @@
 package com.example.himalingoBackend.controller;
 
+import com.example.himalingoBackend.entity.SentenceTranslation;
 import com.example.himalingoBackend.entity.WordTranslation;
 import com.example.himalingoBackend.entity.NepaliAlphabets;
 import com.example.himalingoBackend.service.TranslationService;
@@ -19,13 +20,19 @@ public class TranslationController {
     @Autowired
     private AlphabetService alphabetService;
 
-    // Get All Word Translations
+    // Get All Sentence
+    @GetMapping("/sentences")
+    public List<SentenceTranslation> getAllSentenceTranslations() {
+        return translationService.getAllSentenceTranslations();
+    }
+
+    // Get All Word
     @GetMapping("/words")
     public List<WordTranslation> getAllWordTranslations() {
         return translationService.getAllWordTranslations();
     }
 
-    // Get All Nepali Alphabets
+    // Get All  Alphabets
     @GetMapping("/alphabets")
     public List<NepaliAlphabets> getAllNepaliAlphabets() {
         return alphabetService.getAllNepaliAlphabets();
@@ -41,5 +48,15 @@ public class TranslationController {
     @PostMapping("/alphabet")
     public NepaliAlphabets addNepaliAlphabet(@RequestParam String nepaliCharacter, @RequestParam String translation, @RequestParam String pronunciation) {
         return alphabetService.addNepaliAlphabet(nepaliCharacter, translation, pronunciation);
+    }
+
+    // Add Sentence Translation
+    @PostMapping("/sentence")
+    public SentenceTranslation addSentenceTranslation(
+            @RequestParam String englishSentence,
+            @RequestParam String nepaliTranslation,
+            @RequestParam String pronunciation) {
+
+        return translationService.addSentenceTranslation(englishSentence, nepaliTranslation, pronunciation);
     }
 }

@@ -25,8 +25,6 @@ public class UserService {
 
     @Autowired
     private UsersRepo usersRepo;
-//    @Autowired
-//    private JWTUtils jwtUtils;
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -82,13 +80,11 @@ public class UserService {
             SecurityContextHolder.getContext().setAuthentication(auth);
 
             // Set the response with user details
-            response.setStatusCode(200);
             response.setMessage("Successfully logged in");
             response.setId(user.getId());  // Set user ID in response
             response.setRole(user.getRole());
 
         } catch (Exception e) {
-            response.setStatusCode(401);
             response.setMessage("Invalid email or password");
         }
         return response;
@@ -104,10 +100,8 @@ public class UserService {
             User user = usersRepo.findById(userId)
                     .orElseThrow(() -> new RuntimeException("User not found"));
             userDTO.setUser(user);
-            userDTO.setStatusCode(200);
             userDTO.setMessage("User profile fetched successfully");
         } catch (Exception e) {
-            userDTO.setStatusCode(500);
             userDTO.setMessage("Error occurred while getting user profile: " + e.getMessage());
         }
         return userDTO;
@@ -127,12 +121,10 @@ public class UserService {
                 userDTO.setStatusCode(200);
                 userDTO.setMessage("Successful");
             } else {
-                userDTO.setStatusCode(404);
                 userDTO.setMessage("No users found");
             }
             return userDTO;
         } catch (Exception e) {
-            userDTO.setStatusCode(500);
             userDTO.setMessage("Error occurred: " + e.getMessage());
             return userDTO;
         }
@@ -144,10 +136,8 @@ public class UserService {
         try {
             User usersById = usersRepo.findById(id).orElseThrow(() -> new RuntimeException("User Not found"));
             userDTO.setUser(usersById);
-            userDTO.setStatusCode(200);
             userDTO.setMessage("Users with id '" + id + "' found successfully");
         } catch (Exception e) {
-            userDTO.setStatusCode(500);
             userDTO.setMessage("Error occurred: " + e.getMessage());
         }
         return userDTO;
@@ -160,10 +150,9 @@ public class UserService {
             Optional<User> userOptional = usersRepo.findById(userId);
             if (userOptional.isPresent()) {
                 usersRepo.deleteById(userId);
-                userDTO.setStatusCode(200);
+
                 userDTO.setMessage("User deleted successfully");
             } else {
-                userDTO.setStatusCode(404);
                 userDTO.setMessage("User not found for deletion");
             }
         } catch (Exception e) {
@@ -195,11 +184,10 @@ public class UserService {
                 userDTO.setStatusCode(200);
                 userDTO.setMessage("User updated successfully");
             } else {
-                userDTO.setStatusCode(404);
                 userDTO.setMessage("User not found for update");
             }
         } catch (Exception e) {
-            userDTO.setStatusCode(500);
+
             userDTO.setMessage("Error occurred while updating user: " + e.getMessage());
         }
         return userDTO;
@@ -215,7 +203,6 @@ public class UserService {
                 userDTO.setStatusCode(200);
                 userDTO.setMessage("successful");
             } else {
-                userDTO.setStatusCode(404);
                 userDTO.setMessage("User not found for update");
             }
 
